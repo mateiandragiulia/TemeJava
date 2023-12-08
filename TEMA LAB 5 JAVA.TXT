@@ -1,0 +1,960 @@
+package problema1;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+public class Main {
+    public static void main(String[] args) {
+        List<PerecheNumere> lista = citire();
+        scriere(lista);
+        lista.forEach(System.out::println);
+
+    }
+
+    public static List<PerecheNumere> citire() {
+        try {
+            File file=new File("src/main/resources/NumerePereche.json");
+            ObjectMapper mapper=new ObjectMapper();
+            List<PerecheNumere> persoane = mapper.readValue(file, new TypeReference<List<PerecheNumere>>(){});
+            return persoane;
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }         return null;
+    }
+
+    public static void scriere(List<PerecheNumere> lista)
+    {
+        try {
+            ObjectMapper mapper=new ObjectMapper();
+            File file=new File("src/main/resources/out.json");
+            mapper.writeValue(file,lista);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+package problema1;
+
+public class PerecheNumere
+{
+    private int x;
+    private int y;
+
+    public PerecheNumere()
+    {
+
+    }
+
+    public PerecheNumere(int x,int y)
+    {
+        this.x=x;
+        this.y=y;
+    }
+
+    @Override
+    public String toString() {
+        return "\nx="+x+"\ny="+y;
+    }
+
+    public int getX()
+    {
+        return x;
+    }
+
+    public int getY()
+    {
+        return y;
+    }
+
+    public void setX(int newX)
+    {
+        this.x=newX;
+    }
+
+    public void setY(int newY)
+    {
+        this.y=newY;
+    }
+
+    /**
+     *fwwfwffwf
+     * @return gveeve
+     */
+    public int CMMMC() {
+        int maxNum ;
+        if(this.x > this.y)
+            maxNum = this.x;
+        else
+            maxNum = this.y;
+        while (true)
+        {
+            if (maxNum % this.x == 0 && maxNum % this.y == 0) {
+                return maxNum;
+            }
+            maxNum++;
+        }
+    }
+
+    public boolean areConsecutiveInFibonacci()
+    {
+        if (this.x > this.y)
+        {
+            int temp = this.x;
+            this.x = this.y;
+            this.y = temp;
+        }
+        int fib1 = 0;
+        int fib2 = 1;
+        while (fib2 < this.y)
+        {
+            int temp = fib1 + fib2;
+            fib1 = fib2;
+            fib2 = temp;
+
+            if (fib1 == this.x && fib2 == this.y) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean cifreEgale()
+    {
+        int suma1=0,suma2=0;
+        int temp;
+        temp = this.x;
+        while(temp>0)
+        {
+            suma1+=temp%10;
+            temp/=10;
+        }
+        temp=this.y;
+        while(temp>0)
+        {
+            suma2+=temp%10;
+            temp/=10;
+        }
+        if(suma1 == suma2)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean NrEgalCifrePare()
+    {
+        int nr1=0,nr2=0;
+        int temp,cifra;
+        temp = this.x;
+        while(temp>0)
+        {
+            cifra=temp%10;
+            if(cifra % 2==0)
+                nr1++;
+            temp/=10;
+        }
+        temp=this.y;
+        while(temp>0)
+        {
+            cifra=temp%10;
+            if(cifra % 2==0)
+                nr2++;
+            temp/=10;
+        }
+        if(nr1 == nr2)
+            return true;
+        else
+            return false;
+    }
+
+}
+
+
+
+
+
+package problema3;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import problema1.PerecheNumere;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        Scanner scanner =  new Scanner(System.in);
+        List<Mobilier> mobiliere = citire();
+        mobiliere.forEach(System.out::println);
+        System.out.println("Dati numele mobilierului: ");
+        String nume = scanner.nextLine();
+        for (Mobilier m : mobiliere)
+        {
+            if(m.getNume().trim().equals(nume.trim()))
+                System.out.println(m);
+        }
+        System.out.println("*****");
+        afisareaArie(mobiliere);
+    }
+
+    public static List<Mobilier> citire() throws IOException {
+        File file = new File("src/main/resources/mobilier.json");
+
+        try (FileInputStream fileInputStream = new FileInputStream(file)) {
+            ObjectMapper mapper = new ObjectMapper();
+            List<Mobilier> mobiliere = mapper.readValue(fileInputStream, new TypeReference<List<Mobilier>>() {});
+            return mobiliere;
+        } catch (IOException e) {
+            // Log or print the exception
+            e.printStackTrace();
+            // Re-throw the exception to be handled by the calling code
+            throw e;
+        }
+    }
+
+    public static double calculArie(List<Placa> placi)
+    {
+        double arieMobilier = 0;
+        for (Placa placa : placi) {
+            arieMobilier += placa.getLungime() * placa.getLatime();
+        }
+        return arieMobilier;
+    }
+
+    private static double calculeazaNumarColtiPal(double arieMobilier) {
+        // Dimensiunile unei coale de pal
+        double lungimeCoalaPal = 2800; // mm
+        double latimeCoalaPal = 2070; // mm
+        double arieCoalaPal = lungimeCoalaPal * latimeCoalaPal;
+
+        // Calculeaza numarul de colti de pal necesari
+        return arieMobilier / arieCoalaPal;
+    }
+
+    public static void afisareaArie(List<Mobilier> mobiliere)
+    {
+        Scanner scanner =  new Scanner(System.in);
+        System.out.println("Dati numele mobilierului: ");
+        String nume = scanner.nextLine();
+        for(Mobilier m : mobiliere)
+        {
+            if(m.getNume().trim().equals(nume.trim()))
+            {
+                double arieMobilier= calculArie(m.getPlaci());
+                double nrColtiPal = calculeazaNumarColtiPal(arieMobilier);
+                System.out.println("Numar estimativ de colti de pal necesari pentru " + nume + ": " + nrColtiPal);
+                return;
+            }
+        }
+
+    }
+
+}
+
+
+
+
+
+
+
+
+package problema3;
+
+
+import java.util.ArrayList;
+import java.util.List;
+public class Mobilier {
+    String nume;
+    List<Placa> placi = new ArrayList<>();
+
+    public Mobilier()
+    {
+
+    }
+
+    public Mobilier(String nume) {
+        this.nume = nume;
+        this.placi = new ArrayList<>();
+    }
+    void adaugarePlaca(Placa p)
+    {
+        placi.add(p);
+    }
+
+    public String getNume() {
+        return nume;
+    }
+
+    public void setNume(String nume) {
+        this.nume = nume;
+    }
+
+    public List<Placa> getPlaci() {
+        return placi;
+    }
+
+    public void setPlaci(List<Placa> placi) {
+        this.placi = placi;
+    }
+
+    @Override
+    public String toString() {
+        return "\nNume: "+nume+"\nPlaci:\n"+placi+"\n";
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package problema3;
+
+public enum Orientare { LUNGIME, LATIME, ORICARE}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package problema3;
+
+public class Placa {
+    /*
+    descriere (String cu valori precum usa, capac, laterală, raft mobil, raft fix, etc)
+    o lungime în milimetri (întreg)
+    o laţime în milimetri (întreg)
+    o orientare– enumerare cu valorile posibile LUNGIME, LATIME, ORICARE
+    o canturi (vector de 4 elemente boolean). Fiecare piesă de pal care face parte dintr-un
+    corp de mobilă, are 4 muchii. O anumită valoare booleană indică prezența sau
+    absența cantului pe muchia corespunzătoare.
+            o nr_bucati (int)
+     */
+    private String descriere;
+    private int lungime;
+    private int latime;
+    private Orientare orientare;
+    private boolean[] canturi = new boolean[4];
+
+    private int nr_bucati;
+
+    public Placa()
+    {
+
+    }
+
+    public String getDescriere() {
+        return descriere;
+    }
+
+    public void setDescriere(String descriere) {
+        this.descriere = descriere;
+    }
+
+    public int getLungime() {
+        return lungime;
+    }
+
+    public void setLungime(int lungime) {
+        this.lungime = lungime;
+    }
+
+    public int getLatime() {
+        return latime;
+    }
+
+    public void setLatime(int latime) {
+        this.latime = latime;
+    }
+
+    public Orientare getOrientare() {
+        return orientare;
+    }
+
+    public void setOrientare(Orientare orientare) {
+        this.orientare = orientare;
+    }
+
+    public boolean[] getCanturi() {
+        return canturi;
+    }
+
+    public void setCanturi(boolean[] canturi) {
+        this.canturi = canturi;
+    }
+
+    public int getNr_bucati() {
+        return nr_bucati;
+    }
+
+    public void setNr_bucati(int nr_bucati) {
+        this.nr_bucati = nr_bucati;
+    }
+
+    public Placa(String descriere, int lungime, int latime, Orientare orientare, boolean[] canturi, int nr_bucati) {
+        this.descriere = descriere;
+        this.lungime = lungime;
+        this.latime = latime;
+        this.orientare = orientare;
+        this.canturi = canturi;
+        this.nr_bucati = nr_bucati;
+    }
+
+    @Override
+    public String toString() {
+        return "\nDescriere: "+descriere+"\nLungime: "+lungime+"\nLatime: "+latime+"\nOrientare: "+orientare+"\nCanturi: "+canturi[0]+", "+canturi[1]+", "+canturi[2]+", "+canturi[3]+"\nNumar de bucati: "+nr_bucati+"\n";
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+[
+  {   "x": 10,   "y": 20  },
+  {   "x": 11,   "y": 34  },
+  {   "x": 50,   "y": 62  },
+  {   "x": 55,   "y": 89  },
+  {   "x": 2456,   "y": 1222  }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[
+  {
+    "nume": "mobilier corp 1",
+    "placi": [
+      {
+        "descriere": "lataral",
+        "lungime": 1982,
+        "latime": 400,
+        "orientare": "LUNGIME",
+        "canturi": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "nr_bucati": 2
+      },
+      {
+        "descriere": "capac",
+        "lungime": 550,
+        "latime": 400,
+        "orientare": "LATIME",
+        "canturi": [
+          true,
+          true,
+          false,
+          true
+        ],
+        "nr_bucati": 1
+      },
+      {
+        "descriere": "usa mica",
+        "lungime": 618,
+        "latime": 254,
+        "orientare": "LUNGIME",
+        "canturi": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "nr_bucati": 2
+      },
+      {
+        "descriere": "usa mare",
+        "lungime": 952,
+        "latime": 254,
+        "orientare": "LUNGIME",
+        "canturi": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "nr_bucati": 2
+      },
+      {
+        "descriere": "prag",
+        "lungime": 514,
+        "latime": 50,
+        "orientare": "LATIME",
+        "canturi": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "nr_bucati": 1
+      },
+      {
+        "descriere": "raft mobil",
+        "lungime": 514,
+        "latime": 370,
+        "orientare": "ORICARE",
+        "canturi": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "nr_bucati": 3
+      },
+      {
+        "descriere": "raft fix",
+        "lungime": 514,
+        "latime": 400,
+        "orientare": "LUNGIME",
+        "canturi": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "nr_bucati": 3
+      }
+    ]
+  },
+  {
+    "nume": "dulap 1",
+    "placi": [
+      {
+        "descriere": "lataral",
+        "lungime": 1782,
+        "latime": 582,
+        "orientare": "LUNGIME",
+        "canturi": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "nr_bucati": 2
+      },
+      {
+        "descriere": "capac",
+        "lungime": 800,
+        "latime": 582,
+        "orientare": "LATIME",
+        "canturi": [
+          true,
+          true,
+          false,
+          true
+        ],
+        "nr_bucati": 1
+      },
+      {
+        "descriere": "raft fix jos",
+        "lungime": 764,
+        "latime": 582,
+        "orientare": "ORICARE",
+        "canturi": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "nr_bucati": 1
+      },
+      {
+        "descriere": "raft interior",
+        "lungime": 764,
+        "latime": 550,
+        "orientare": "ORICARE",
+        "canturi": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "nr_bucati": 2
+      },
+      {
+        "descriere": "usa",
+        "lungime": 1694,
+        "latime": 395,
+        "orientare": "LUNGIME",
+        "canturi": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "nr_bucati": 2
+      },
+      {
+        "descriere": "prag",
+        "lungime": 764,
+        "latime": 100,
+        "orientare": "LATIME",
+        "canturi": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "nr_bucati": 1
+      }
+    ]
+  }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+[{"x":10,"y":20},{"x":11,"y":34},{"x":50,"y":62},{"x":55,"y":89},{"x":2456,"y":1222}]
+
+
+
+
+
+
+
+
+
+
+
+
+@@ -0,0 +1,70 @@
+import problema1.PerecheNumere;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+public class TestePerecheNumere
+{
+    @Test
+    void test1_CMMMC()
+    {
+        PerecheNumere p = new PerecheNumere(12,18);
+        assertEquals(36, p.CMMMC());
+    }
+
+    @Test
+    void test2_CMMMC()
+    {
+        PerecheNumere p =new PerecheNumere(14, 21);
+        assertTrue(p.CMMMC() == 42);
+    }
+
+    @Test
+    void test3_CMMMC()
+    {
+        PerecheNumere p = new PerecheNumere(10,20);
+        assertFalse(p.CMMMC() != 20);
+    }
+
+    @Test
+    void test1_NrEgalCifrePare()
+    {
+        PerecheNumere p = new PerecheNumere(2455, 1344);
+        assertEquals(true,p.NrEgalCifrePare());
+    }
+
+    @Test
+    void test2_NrEgalCifrePare()
+    {
+        PerecheNumere p = new PerecheNumere(2465, 2344);
+        assertTrue(true==p.NrEgalCifrePare());
+    }
+
+    @Test
+    void test3_NrEgalCifrePare()
+    {
+        PerecheNumere p = new PerecheNumere(2111, 2377);
+        assertFalse(true!=p.NrEgalCifrePare());
+    }
+
+    @Test
+    void test1_cifreEgale()
+    {
+        PerecheNumere p = new PerecheNumere(15, 33);
+        assertEquals(true,p.cifreEgale());
+    }
+
+    @Test
+    void test2_cifreEgale()
+    {
+        PerecheNumere p = new PerecheNumere(15, 33);
+        assertTrue(true == p.cifreEgale());
+    }
+
+    @Test
+    void test3_cifreEgale()
+    {
+        PerecheNumere p = new PerecheNumere(25, 33);
+        assertFalse(true == p.cifreEgale());
+    }
+}
+
+
+
+
+
+
+
+
+{   "x": 10,   "y": 20  },
+  {   "x": 11,   "y": 34  },
+  {   "x": 50,   "y": 62  },
+  {   "x": 55,   "y": 89  },
+  {   "x": 2456,   "y": 1222  }
+
+
+
+
+
+
+
+
+{
+    "nume": "mobilier corp 1",
+    "placi": [
+      {
+        "descriere": "lataral",
+        "lungime": 1982,
+        "latime": 400,
+        "orientare": "LUNGIME",
+        "canturi": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "nr_bucati": 2
+      },
+      {
+        "descriere": "capac",
+        "lungime": 550,
+        "latime": 400,
+        "orientare": "LATIME",
+        "canturi": [
+          true,
+          true,
+          false,
+          true
+        ],
+        "nr_bucati": 1
+      },
+      {
+        "descriere": "usa mica",
+        "lungime": 618,
+        "latime": 254,
+        "orientare": "LUNGIME",
+        "canturi": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "nr_bucati": 2
+      },
+      {
+        "descriere": "usa mare",
+        "lungime": 952,
+        "latime": 254,
+        "orientare": "LUNGIME",
+        "canturi": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "nr_bucati": 2
+      },
+      {
+        "descriere": "prag",
+        "lungime": 514,
+        "latime": 50,
+        "orientare": "LATIME",
+        "canturi": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "nr_bucati": 1
+      },
+      {
+        "descriere": "raft mobil",
+        "lungime": 514,
+        "latime": 370,
+        "orientare": "ORICARE",
+        "canturi": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "nr_bucati": 3
+      },
+      {
+        "descriere": "raft fix",
+        "lungime": 514,
+        "latime": 400,
+        "orientare": "LUNGIME",
+        "canturi": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "nr_bucati": 3
+      }
+    ]
+  },
+  {
+    "nume": "dulap 1",
+    "placi": [
+      {
+        "descriere": "lataral",
+        "lungime": 1782,
+        "latime": 582,
+        "orientare": "LUNGIME",
+        "canturi": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "nr_bucati": 2
+      },
+      {
+        "descriere": "capac",
+        "lungime": 800,
+        "latime": 582,
+        "orientare": "LATIME",
+        "canturi": [
+          true,
+          true,
+          false,
+          true
+        ],
+        "nr_bucati": 1
+      },
+      {
+        "descriere": "raft fix jos",
+        "lungime": 764,
+        "latime": 582,
+        "orientare": "ORICARE",
+        "canturi": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "nr_bucati": 1
+      },
+      {
+        "descriere": "raft interior",
+        "lungime": 764,
+        "latime": 550,
+        "orientare": "ORICARE",
+        "canturi": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "nr_bucati": 2
+      },
+      {
+        "descriere": "usa",
+        "lungime": 1694,
+        "latime": 395,
+        "orientare": "LUNGIME",
+        "canturi": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "nr_bucati": 2
+      },
+      {
+        "descriere": "prag",
+        "lungime": 764,
+        "latime": 100,
+        "orientare": "LATIME",
+        "canturi": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "nr_bucati": 1
+      }
+    ]
+  }
+
+
+
+
+
+{"x":10,"y":20},{"x":11,"y":34},{"x":50,"y":62},{"x":55,"y":89},{"x":2456,"y":1222}

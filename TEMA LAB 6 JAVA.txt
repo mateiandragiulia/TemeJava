@@ -1,0 +1,277 @@
+LABORATOR 6:
+package problema1;
+
+import java.time.LocalDate;
+
+public class Angajat {
+    private String nume;
+    private String post;
+    private LocalDate data_angajarii;
+    private float salariul;
+    public  Angajat()
+    {
+
+    }
+    public Angajat(String nume, String post, LocalDate data_angajarii, float salariul) {
+        this.nume = nume;
+        this.post = post;
+        this.data_angajarii = data_angajarii;
+        this.salariul = salariul;
+    }
+
+    public String getNume() {
+        return nume;
+    }
+
+    public void setNume(String nume) {
+        this.nume = nume;
+    }
+
+    public String getPost() {
+        return post;
+    }
+
+    public void setPost(String post) {
+        this.post = post;
+    }
+
+    public LocalDate getData_angajarii() {
+        return data_angajarii;
+    }
+
+    public void setData_angajarii(LocalDate data_angajarii) {
+        this.data_angajarii = data_angajarii;
+    }
+
+    public float getSalariul() {
+        return salariul;
+    }
+
+    public void setSalariul(float salariul) {
+        this.salariul = salariul;
+    }
+
+    @Override
+    public String toString() {
+        return "\nNumele: "+nume+"\nPostul: "+post+"\nData angajarii: "+data_angajarii+"\nSalarul: "+salariul;
+    }
+}
+
+
+
+
+
+
+
+
+
+package problema1;
+
+import java.time.LocalDate;
+
+public class Angajat {
+    private String nume;
+    private String post;
+    private LocalDate data_angajarii;
+    private float salariul;
+    public  Angajat()
+    {
+
+    }
+    public Angajat(String nume, String post, LocalDate data_angajarii, float salariul) {
+        this.nume = nume;
+        this.post = post;
+        this.data_angajarii = data_angajarii;
+        this.salariul = salariul;
+    }
+
+    public String getNume() {
+        return nume;
+    }
+
+    public void setNume(String nume) {
+        this.nume = nume;
+    }
+
+    public String getPost() {
+        return post;
+    }
+
+    public void setPost(String post) {
+        this.post = post;
+    }
+
+    public LocalDate getData_angajarii() {
+        return data_angajarii;
+    }
+
+    public void setData_angajarii(LocalDate data_angajarii) {
+        this.data_angajarii = data_angajarii;
+    }
+
+    public float getSalariul() {
+        return salariul;
+    }
+
+    public void setSalariul(float salariul) {
+        this.salariul = salariul;
+    }
+
+    @Override
+    public String toString() {
+        return "\nNumele: "+nume+"\nPostul: "+post+"\nData angajarii: "+data_angajarii+"\nSalarul: "+salariul;
+    }
+}
+
+
+
+
+{
+    "nume": "Andrei",
+    "post": "programator",
+    "data_angajarii": "2023-05-11",
+    "salariul": 5000
+  },
+  {
+    "nume": "Laur",
+    "post": "HR",
+    "data_angajarii": "2021-09-07",
+    "salariul": 2800
+  },
+  {
+    "nume": "Ion",
+    "post": "tractorist",
+    "data_angajarii": "2020-12-22",
+    "salariul": 19000
+  },
+  {
+    "nume": "Mihai",
+    "post": "ingrijitor",
+    "data_angajarii": "2017-02-01",
+    "salariul": 2000
+  },
+  {
+    "nume": "Sami",
+    "post": "director",
+    "data_angajarii": "2019-05-25",
+    "salariul": 15000
+  },
+  {
+    "nume": "Malina",
+    "post": "programator",
+    "data_angajarii": "2023-05-28",
+    "salariul": 5000
+  },
+  {
+    "nume": "Ionut",
+    "post": "manager",
+    "data_angajarii": "2020-06-06",
+    "salariul": 8000
+  },
+  {
+    "nume": "Claudia",
+    "post": "programator",
+    "data_angajarii": "2021-06-13",
+    "salariul": 6000
+  },
+  {
+    "nume": "Bogdan",
+    "post": "contabil",
+    "data_angajarii": "2022-08-22",
+    "salariul": 2400
+  },
+  {
+    "nume": "Bianca",
+    "post": "sef",
+    "data_angajarii": "2022-04-12",
+    "salariul": 22400
+  },
+  {
+    "nume": "Adrian",
+    "post": "director",
+    "data_angajarii": "2022-04-12",
+    "salariul": 20000
+  },
+  {
+    "nume": "Diana",
+    "post": "traducator",
+    "data_angajarii": "2022-06-26",
+    "salariul": 6300
+  }
+
+
+
+
+
+ {
+    "nume": "Andrei",
+    "post": "programator",
+    "data_angajarii": "2023-05-11",
+    "salariul": 5000
+  },
+  {
+    "nume": "Laur",
+    "post": "HR",
+    "data_angajarii": "2021-09-07",
+    "salariul": 2800
+  },
+  {
+    "nume": "Ion",
+    "post": "tractorist",
+    "data_angajarii": "2020-12-22",
+    "salariul": 19000
+  },
+  {
+    "nume": "Mihai",
+    "post": "ingrijitor",
+    "data_angajarii": "2017-02-01",
+    "salariul": 2000
+  },
+  {
+    "nume": "Sami",
+    "post": "director",
+    "data_angajarii": "2019-05-25",
+    "salariul": 15000
+  },
+  {
+    "nume": "Malina",
+    "post": "programator",
+    "data_angajarii": "2023-05-28",
+    "salariul": 5000
+  },
+  {
+    "nume": "Ionut",
+    "post": "manager",
+    "data_angajarii": "2020-06-06",
+    "salariul": 8000
+  },
+  {
+    "nume": "Claudia",
+    "post": "programator",
+    "data_angajarii": "2021-06-13",
+    "salariul": 6000
+  },
+  {
+    "nume": "Bogdan",
+    "post": "contabil",
+    "data_angajarii": "2022-08-22",
+    "salariul": 2400
+  },
+  {
+    "nume": "Bianca",
+    "post": "sef",
+    "data_angajarii": "2022-04-12",
+    "salariul": 22400
+  },
+  {
+    "nume": "Adrian",
+    "post": "director",
+    "data_angajarii": "2022-04-12",
+    "salariul": 20000
+  },
+  {
+    "nume": "Diana",
+    "post": "traducator",
+    "data_angajarii": "2022-06-26",
+    "salariul": 6300
+  }
